@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import mx.com.ipn.upiicsa.poo.calculadora.bs.Calculadora;
+import mx.com.ipn.upiicsa.poo.calculadora.bs.OperationEnum;
 import mx.com.ipn.upiicsa.poo.calculadora.exception.DivZeroException;
 
 public class VentanaCalculadoraBasica extends JPanel{
@@ -167,31 +168,31 @@ public class VentanaCalculadoraBasica extends JPanel{
 		buttonSuma.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				capturarOperator(Calculadora.OPERATOR_SUMA);
+				capturarOperator(OperationEnum.SUMA.getId());
 			}
 		});
 		buttonResta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				capturarOperator(Calculadora.OPERATOR_RESTA);
+				capturarOperator(OperationEnum.RESTA.getId());
 			}
 		});
 		buttonProducto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				capturarOperator(Calculadora.OPERATOR_PRODUCTO);
+				capturarOperator(OperationEnum.PRODUCTO.getId());
 			}
 		});
 		buttonDivision.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				capturarOperator(Calculadora.OPERATOR_DIVISION);
+				capturarOperator(OperationEnum.DIVISION.getId());
 			}
 		});
 		buttonPorcentaje.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				capturarOperator(Calculadora.OPERATOR_PORCENTAJE);
+				capturarOperator(OperationEnum.PORCENTAJE.getId());
 			}
 		});	
 		buttonIgual.addActionListener(new ActionListener() {
@@ -233,7 +234,7 @@ public class VentanaCalculadoraBasica extends JPanel{
 			String resultadoString = null;
 			valor2 = Double.parseDouble(display.getText());
 			try {
-				resultado = calculadora.calculate(operator, valor1, valor2);
+				resultado = calculateResult();
 				resultadoString = resultado.toString();
 			}catch(DivZeroException e) {
 				resultadoString = "SYNTAX ERROR";
@@ -243,6 +244,10 @@ public class VentanaCalculadoraBasica extends JPanel{
 				display.setText(resultadoString);
 			}
 		}
+	}
+	
+	protected Double calculateResult() throws DivZeroException {
+		return calculadora.calculate(operator, valor1, valor2);
 	}
 	
 	

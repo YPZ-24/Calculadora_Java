@@ -1,36 +1,26 @@
 package mx.com.ipn.upiicsa.poo.calculadora.bs;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import mx.com.ipn.upiicsa.poo.calculadora.exception.DivZeroException;
 
 public class Calculadora {
-	public static final int OPERATOR_SUMA = 1;
-	public static final int OPERATOR_RESTA = 2;
-	public static final int OPERATOR_PRODUCTO = 3;
-	public static final int OPERATOR_DIVISION = 4;
-	public static final int OPERATOR_PORCENTAJE = 5;
 	
+	public static final Map<String,OperationEnum> operationsEnum = new HashMap<String,OperationEnum>();
 	
 	public Double calculate(int operator, Double valor1, Double valor2) throws DivZeroException {
 		Double resultado = 0d;
-		switch (operator) {
-		case OPERATOR_SUMA:
+		if(operator == OperationEnum.SUMA.getId()) {
 			resultado = suma(valor1, valor2);
-			break;
-		case OPERATOR_RESTA:
+		}else if(operator == OperationEnum.RESTA.getId()) {
 			resultado = resta(valor1, valor2);
-			break;
-		case OPERATOR_PRODUCTO:
+		}else if(operator == OperationEnum.PRODUCTO.getId()) {
 			resultado = producto(valor1, valor2);
-			break;
-		case OPERATOR_DIVISION:
+		}else if(operator == OperationEnum.DIVISION.getId()) {
 			resultado = division(valor1, valor2);
-			break;
-		case OPERATOR_PORCENTAJE:
+		}else if(operator == OperationEnum.PORCENTAJE.getId()) {
 			resultado = porcentaje(valor1, valor2);
-			break;
-		default:
-			resultado = -1d;
-			break;
 		}
 		return resultado;
 	}

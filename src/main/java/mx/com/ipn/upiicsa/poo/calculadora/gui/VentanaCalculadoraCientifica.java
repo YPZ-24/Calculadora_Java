@@ -3,12 +3,22 @@ package mx.com.ipn.upiicsa.poo.calculadora.gui;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
 
-public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
+import mx.com.ipn.upiicsa.poo.calculadora.bs.Calculadora;
+import mx.com.ipn.upiicsa.poo.calculadora.bs.CalculadoraCientifica;
+import mx.com.ipn.upiicsa.poo.calculadora.bs.OperationEnum;
+import mx.com.ipn.upiicsa.poo.calculadora.exception.DivZeroException;
 
+public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
+	
+	protected static final Double PI = Math.PI;
+	protected static final Double E = Math.E;
+	protected CalculadoraCientifica calculadoraCientifica;
 	
 	private JButton buttonPotencia2;
 	private JButton buttonPotencia3;
@@ -28,11 +38,9 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
 	private JButton buttonNumE;
 	private JButton buttonPi;
 	
-	
-	
-	
 	public VentanaCalculadoraCientifica(){
 		super();
+		calculadoraCientifica = new CalculadoraCientifica();
 	}
 
 	@Override
@@ -46,8 +54,143 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
 
 	@Override
 	protected void initializeListener() {
-		// TODO Auto-generated method stub
 		super.initializeListener();
+		
+		buttonNumE.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarNumero(E.toString());
+			}
+		});
+		
+		buttonPi.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarNumero(PI.toString());
+			}
+		});
+		
+		buttonPotencia2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.POTENCIA_2.getId());
+			}
+		});
+		
+		buttonPotencia3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.POTENCIA_3.getId());
+			}
+		});
+		
+		buttonPotenciaY.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.POTENCIA_Y.getId());
+			}
+		});
+		
+		buttonPotenciaE.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.POTENCIA_E.getId());
+			}
+		});
+		
+		buttonNotacionExponencial.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.NOTACION_EXPONENCIAL.getId());
+			}
+		});
+		
+		buttonInversa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.INVERSA.getId());
+			}
+		});
+		buttonRaiz2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.RAIZ_2.getId());
+			}
+		});
+		buttonRaiz3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.RAIZ_3.getId());
+			}
+		});
+		buttonRaizY.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.RAIZ_Y.getId());
+			}
+		});
+		buttonLogNatural.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.LOG_NATURAL.getId());
+			}
+		});
+		buttonLogBase10.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.LOG_BASE_10.getId());
+			}
+		});
+		buttonFactorial.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.FACTORIAL.getId());
+			}
+		});
+		buttonSeno.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.SENO.getId());
+			}
+		});
+		buttonCoseno.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.COSENO.getId());
+			}
+		});
+		buttonTangente.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				capturarOperator(OperationEnum.TANGENTE.getId());
+			}
+		});
+	}
+	
+	@Override
+	protected Double calculateResult() throws DivZeroException {
+		return calculadoraCientifica.calculate(operator, valor1, valor2);
+	}
+
+	@Override
+	protected void updateState(int action) {
+		if(state == STATE_CAPTURE && action == ACTION_OPERATOR) {
+			boolean oneParam = CalculadoraCientifica.hasOneParam((Integer)operator);
+			System.out.println(oneParam);
+			if(oneParam) {
+				state = STATE_CALCULATE;
+			}else {
+				state = STATE_OPERATOR;
+			}
+		}else if(action == ACTION_CLEAN) {
+			state = STATE_INIT;
+		}else if(state == STATE_INIT && action == ACTION_NUMBER || state == STATE_CALCULATE && action == ACTION_NUMBER || state == STATE_OPERATOR && action == ACTION_NUMBER) {
+			state = STATE_CAPTURE;
+		}else if( state == STATE_CALCULATE && action == ACTION_OPERATOR) {
+			state = STATE_OPERATOR;
+		}else if(state == STATE_CAPTURE && action == ACTION_EQUAL) {
+			state = STATE_CALCULATE;
+		}
 	}
 
 	@Override
@@ -132,9 +275,6 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
 		calculadoraGridConstraints.gridy = 5;
 		add(buttonPunto, calculadoraGridConstraints);
 		
-		
-		
-		
 		/*CIENTIFICA*/
 		calculadoraGridConstraints.gridwidth = 1;
 		calculadoraGridConstraints.gridx = 4;
@@ -163,7 +303,6 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
 		calculadoraGridConstraints.gridx = 7;
 		calculadoraGridConstraints.gridy = 2;
 		add(buttonRaizY, calculadoraGridConstraints);
-		
 		
 		calculadoraGridConstraints.gridwidth = 1;
 		calculadoraGridConstraints.gridx = 4;
