@@ -1,5 +1,7 @@
 package mx.com.ipn.upiicsa.poo.calculadora.bs;
 
+import mx.com.ipn.upiicsa.poo.calculadora.exception.DivZeroException;
+
 public class Calculadora {
 	public static final int OPERATOR_SUMA = 1;
 	public static final int OPERATOR_RESTA = 2;
@@ -8,7 +10,7 @@ public class Calculadora {
 	public static final int OPERATOR_PORCENTAJE = 5;
 	
 	
-	public Double calculate(int operator, Double valor1, Double valor2) {
+	public Double calculate(int operator, Double valor1, Double valor2) throws DivZeroException {
 		Double resultado = 0d;
 		switch (operator) {
 		case OPERATOR_SUMA:
@@ -42,7 +44,10 @@ public class Calculadora {
 	public Double producto(Double factor1, Double factor2) {
 		return factor1 * factor2;
 	}
-	public Double division(Double dividendo, Double divisor) {
+	public Double division(Double dividendo, Double divisor) throws DivZeroException {
+		if(divisor==0) {
+			throw new DivZeroException();
+		}
 		return dividendo/divisor;
 	}
 	public Double porcentaje(Double cantidad, Double porcentaje) {
