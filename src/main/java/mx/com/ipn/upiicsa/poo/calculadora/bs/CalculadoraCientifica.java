@@ -22,7 +22,7 @@ public class CalculadoraCientifica extends Calculadora {
 		}else if(operator == OperationEnum.POTENCIA_E.getId()) {
 			resultado = potenciaE(valor2);
 		}else if(operator == OperationEnum.NOTACION_EXPONENCIAL.getId()) {
-			resultado = -1000d;
+			resultado = notacionExponencial(valor2);
 		}else if(operator == OperationEnum.INVERSA.getId()) {
 			resultado = inversa(valor2);;
 		}else if(operator == OperationEnum.RAIZ_2.getId()) {
@@ -50,7 +50,6 @@ public class CalculadoraCientifica extends Calculadora {
 
 	public static boolean hasOneParam(Integer operation){
 		boolean hasOne = false;
-		OperationEnum operationEnum = operationsEnum.get(operation);
 		for(OperationEnum o : OperationEnum.values()) {
 	        if(o.getId()==operation) {
 	        	hasOne = o.getParams()==1 ? true : false;
@@ -75,10 +74,10 @@ public class CalculadoraCientifica extends Calculadora {
 	public Double potenciaE(Double y) {
 		return Math.pow(Math.E, y);
 	}
-	/*
-	public Double notacionExponencial() {
-		
-	}*/
+	
+	public Double notacionExponencial(Double x) {
+		return Math.pow(10, x);
+	}
 	public Double inversa(Double num) {
 		return 1/num;
 	}
@@ -105,8 +104,8 @@ public class CalculadoraCientifica extends Calculadora {
 	
 	public Double factorial(Double num) {
 		Integer facto = 1;
-		for (int x=2;x<=Integer.parseInt(num.toString());x++) {
-			  facto = facto * x;
+		for(int i=1; i<=num.intValue(); i++) {
+			facto = facto * i;
 		}
 		return Double.valueOf(facto);
 	}

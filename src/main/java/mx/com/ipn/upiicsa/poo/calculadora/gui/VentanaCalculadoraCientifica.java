@@ -1,21 +1,19 @@
 package mx.com.ipn.upiicsa.poo.calculadora.gui;
 
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.WindowConstants;
 
-import mx.com.ipn.upiicsa.poo.calculadora.bs.Calculadora;
 import mx.com.ipn.upiicsa.poo.calculadora.bs.CalculadoraCientifica;
 import mx.com.ipn.upiicsa.poo.calculadora.bs.OperationEnum;
 import mx.com.ipn.upiicsa.poo.calculadora.exception.DivZeroException;
 
 public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
-	
+
+	private static final long serialVersionUID = 1L;
 	protected static final Double PI = Math.PI;
 	protected static final Double E = Math.E;
 	protected CalculadoraCientifica calculadoraCientifica;
@@ -174,9 +172,8 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
 
 	@Override
 	protected void updateState(int action) {
-		if(state == STATE_CAPTURE && action == ACTION_OPERATOR) {
+		if(state == STATE_CAPTURE && action == ACTION_OPERATOR || state == STATE_CALCULATE && action == ACTION_OPERATOR) {
 			boolean oneParam = CalculadoraCientifica.hasOneParam((Integer)operator);
-			System.out.println(oneParam);
 			if(oneParam) {
 				state = STATE_CALCULATE;
 			}else {
@@ -186,8 +183,7 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadoraBasica{
 			state = STATE_INIT;
 		}else if(state == STATE_INIT && action == ACTION_NUMBER || state == STATE_CALCULATE && action == ACTION_NUMBER || state == STATE_OPERATOR && action == ACTION_NUMBER) {
 			state = STATE_CAPTURE;
-		}else if( state == STATE_CALCULATE && action == ACTION_OPERATOR) {
-			state = STATE_OPERATOR;
+		
 		}else if(state == STATE_CAPTURE && action == ACTION_EQUAL) {
 			state = STATE_CALCULATE;
 		}

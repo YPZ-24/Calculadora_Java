@@ -1,17 +1,13 @@
 package mx.com.ipn.upiicsa.poo.calculadora.gui;
 
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import mx.com.ipn.upiicsa.poo.calculadora.bs.Calculadora;
 import mx.com.ipn.upiicsa.poo.calculadora.bs.OperationEnum;
@@ -19,6 +15,7 @@ import mx.com.ipn.upiicsa.poo.calculadora.exception.DivZeroException;
 
 public class VentanaCalculadoraBasica extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	protected static final Integer CERO = 0;
 	protected static final Integer UNO = 1;
 	protected static final Integer DOS = 2;

@@ -1,13 +1,10 @@
 package mx.com.ipn.upiicsa.poo.calculadora;
 
 import mx.com.ipn.upiicsa.poo.calculadora.gui.VentanaCalculadora;
-import mx.com.ipn.upiicsa.poo.calculadora.gui.VentanaCalculadoraBasica;
-import mx.com.ipn.upiicsa.poo.calculadora.gui.VentanaCalculadoraCientifica;
+/*
+ * Aylin Fernanda Yepez Granados
+ * */
 
-/**
- * Hello world!
- *
- */
 public class App {
 	
 	
