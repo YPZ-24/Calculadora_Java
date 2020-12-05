@@ -1,9 +1,12 @@
 package mx.com.ipn.upiicsa.poo.calculadora.gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -72,7 +75,7 @@ public class VentanaCalculadoraBasica extends JPanel{
 	}
 	
 	protected void initComponents() {
-		//setSize(600,400);
+		setBackground(Color.WHITE);
 		instantiateComponents();
 		buildGrid();
 		initializeListener();
@@ -314,7 +317,7 @@ public class VentanaCalculadoraBasica extends JPanel{
 		calculadoraGridConstraints.gridx = 3;
 		calculadoraGridConstraints.gridy = 4;
 		calculadoraGridConstraints.gridheight = 2;
-		calculadoraGridConstraints.ipady = 85;
+		calculadoraGridConstraints.ipady = 86;
 		add(buttonIgual, calculadoraGridConstraints);
 		
 		calculadoraGridConstraints.ipady = 30;
@@ -335,24 +338,26 @@ public class VentanaCalculadoraBasica extends JPanel{
 		display = new JTextField("");
 		display.setEditable(false);
 		display.setHorizontalAlignment(JTextField.RIGHT);
-		button0 = new JButton("0");
-		button1 = new JButton("1");
-		button2 = new JButton("2");
-		button3 = new JButton("3");
-		button4 = new JButton("4");
-		button5 = new JButton("5");
-		button6 = new JButton("6");
-		button7 = new JButton("7");
-		button8 = new JButton("8");
-		button9 = new JButton("9");
-		buttonPunto = new JButton(".");
-		buttonLimpiar = new JButton("AC");
-		buttonPorcentaje = new JButton("%");
-		buttonDivision = new JButton("/");
-		buttonProducto = new JButton("X");
-		buttonSuma = new JButton("+");
-		buttonResta = new JButton("-");
-		buttonIgual = new JButton("=");
+		display.setBackground(Color.WHITE);
+		display.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		button0 = new MyJButton("0");
+		button1 = new MyJButton("1");
+		button2 = new MyJButton("2");
+		button3 = new MyJButton("3");
+		button4 = new MyJButton("4");
+		button5 = new MyJButton("5");
+		button6 = new MyJButton("6");
+		button7 = new MyJButton("7");
+		button8 = new MyJButton("8");
+		button9 = new MyJButton("9");
+		buttonPunto = new MyJButton(".");
+		buttonLimpiar = new MyJButton("AC");
+		buttonPorcentaje = new MyJButton("%");
+		buttonDivision = new MyJButton("/");
+		buttonProducto = new MyJButton("X");
+		buttonSuma = new MyJButton("+");
+		buttonResta = new MyJButton("-");
+		buttonIgual = new MyJButton("=");
 	}
 	
 	

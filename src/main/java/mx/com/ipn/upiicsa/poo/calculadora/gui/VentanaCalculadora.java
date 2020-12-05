@@ -1,9 +1,13 @@
 package mx.com.ipn.upiicsa.poo.calculadora.gui;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -33,7 +37,7 @@ public class VentanaCalculadora extends JFrame{
 	private void initComponents() {
 		setTitle("Calculadora Básica");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setSize(500,400);
+		setSize(600,400);
 		setResizable(false);
 		instantiateComponents();
 		initListeners();
@@ -48,11 +52,18 @@ public class VentanaCalculadora extends JFrame{
 
 	private void instantiateComponents() {
 		menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(0, 77, 102));
+		menuBar.setBorderPainted(false);
+
 		menuVer = new JMenu("Ver");
+		menuVer.setFont(new Font("Arial", Font.PLAIN, 20));
+		menuVer.setForeground(Color.WHITE);
+		
 		menuBar.add(menuVer);
-		calculadoraBasicaMenuItem = new JMenuItem("Calculadora Básica");
-		calculadoraBasicaMenuItem.setEnabled(false);
-		calculadoraCientificaMenuItem = new JMenuItem("Calculadora Cientifica");
+		
+		calculadoraBasicaMenuItem = new MyJMenuItem("Calculadora Básica");
+		calculadoraBasicaMenuItem.setEnabled(false);;
+		calculadoraCientificaMenuItem = new MyJMenuItem("Calculadora Cientifica");
 		calculadoraCientificaMenuItem.setEnabled(true);
 		menuVer.add(calculadoraBasicaMenuItem);
 		menuVer.add(calculadoraCientificaMenuItem);
